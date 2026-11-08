@@ -14,7 +14,7 @@ public class DiscountCalculator {
 
     public DiscountCalculator(List<DiscountsStrategy> strategies) {
         this.strategies = strategies.stream()
-                .collect(Collectors.toMap(DiscountsStrategy::supports, Function.identity()));;
+                .collect(Collectors.toMap(DiscountsStrategy::supports, Function.identity()));
     }
 
     public double calculateDiscount(Order order) {

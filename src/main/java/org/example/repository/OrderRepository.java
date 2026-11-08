@@ -13,7 +13,7 @@ public class OrderRepository {
     }
 
     public void add(Order order) {
-
+        orders.add(order);
     }
 
 }
