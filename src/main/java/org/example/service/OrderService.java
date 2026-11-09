@@ -33,7 +33,8 @@ public class OrderService {
     private final CommissionCalculator commissionCalculator;
     private final OrderReportService reportService;
 
-    public OrderService(OrderRepository repository, OrderValidator validator, DiscountCalculator discountCalculator, CommissionCalculator commissionCalculator, OrderReportService reportService) {
+    public OrderService(OrderRepository repository, OrderValidator validator, DiscountCalculator discountCalculator,
+                        CommissionCalculator commissionCalculator, OrderReportService reportService) {
         this.repository = repository;
         this.validator = validator;
         this.discountCalculator = discountCalculator;
@@ -71,7 +72,7 @@ public class OrderService {
                 List.of(new VipDiscount(), new RegularDiscount(), new PremiumDiscount()));
         CommissionCalculator commissionCalculator = new CommissionCalculator(
                 List.of(new CardCommission(), new CashCommission(), new TransferCommission()));
-        OrderReportService orderReportService = new OrderReportService();
+        OrderReportService orderReportService = new OrderReportService(System.out);
 
         OrderService service = new OrderService(orderRepository, orderValidator,
                 discountCalculator, commissionCalculator, orderReportService);
@@ -92,5 +93,8 @@ public class OrderService {
 * Был нарушен принцип Open/Closed - для того, чтобы добавить логику по вычислению комиссии и скидки
 * необходимо было менять существующий код
 * Решение: применение паттерна стратегия для каждого типа комиссии и скидки
+*
+* Был нарушен принцип Dependency Inversion - у класса OrderService инициализация контейнера List была через поле
+* Решение: вынести инициализацию в конструтор, чтобы исключить зависимость класса от реализации и сделать его зависимым от абстракции
 * */
 
